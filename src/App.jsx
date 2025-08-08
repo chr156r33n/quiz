@@ -3,27 +3,7 @@ import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { RotateCcw, CheckCircle, XCircle } from 'lucide-react'
 import './App.css'
-
-// Quiz Configuration
-const quizConfig = {
-  mainTitle: "BigQuery Pro Module 1 Quiz - You're in! First steps to data analysis",
-  welcomeMessage: "It is time to put your new knowledge to the test! I don't have to, and there is no pressure, but we encourage you to take the quiz to make sure you understood and remember the key information we provided.",
-  currentQuizText: "Module 1 Quiz:",
-  questionsText: "Questions",
-  multipleChoiceFormat: "", // Removed as requested
-  startButton: "Start Quiz",
-  quizResultsTitle: "Quiz Results",
-  youScoredText: "You scored",
-  yourAnswerText: "Your answer:",
-  correctAnswerText: "Correct answer:",
-  takeQuizAgainButton: "Take Quiz Again",
-  questionPrefix: "Question",
-  ofText: "of",
-  progressText: "Progress:",
-  restartQuizButton: "Restart Quiz",
-  nextQuestionButton: "Next Question",
-  finishQuizButton: "Finish Quiz",
-};
+import { modules } from './data/modules.js'
 
 // Simple CSV parser that handles quoted fields
 const parseCSV = (csvText) => {
@@ -77,6 +57,10 @@ const parseCSV = (csvText) => {
 };
 
 function App() {
+  const [moduleId] = useState(() => new URLSearchParams(window.location.search).get('module') || 'module1')
+  const selectedModule = modules.find(m => m.id === moduleId) || modules[0]
+  const quizConfig = selectedModule.config
+
   const [questions, setQuestions] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState(new Set())
@@ -85,7 +69,7 @@ function App() {
   const [quizStarted, setQuizStarted] = useState(false)
 
   useEffect(() => {
-    fetch("/assets/quiz_questions.csv")
+    fetch(selectedModule.csv)
       .then((response) => response.text())
       .then((csv) => {
         const newQuestions = parseCSV(csv);
@@ -94,7 +78,7 @@ function App() {
         }
       })
       .catch((error) => console.error("Error loading CSV:", error));
-  }, []);
+  }, [selectedModule]);
 
   const resetQuiz = () => {
     setCurrentQuestion(0)
