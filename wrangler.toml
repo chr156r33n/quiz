@@ -1,3 +1,6 @@
+name = "quiz-app"
+compatibility_date = "2024-08-01"
+
 [pages]
 pages_build_output_dir = "dist"
 build_command = "pnpm run build"
