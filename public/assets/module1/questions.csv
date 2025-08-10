@@ -2,11 +2,11 @@ question,option_a,option_b,option_c,option_d,correct_option
 Why do you need to add a column name in GROUP BY? There are possibly multiple valid answers,Because you always have to group at least one column in a query,Because you used calculation functions with at least one column in your query,To aggregate data based on this column,This is necessary in order to use multiple columns in a query,"b,c"
 Case statements require at least 2 when clauses,FALSE,TRUE,,,b
 "With BigQuery, you can use case or if/else statements to build conditional logic.",FALSE,TRUE,,,b
-"If you want to filter your data based on dates, you need to do it in your query's WHERE clause.",FALSE,TRUE,,,b
+"If you want to filter your data based on dates, you need to do it in your query's WHERE clause.
+",FALSE,TRUE,,,b
 What sort of data are you going to find and use with the INT data type?,Numbers with decimals,Numbers,Text,Dates,b
 Subqueries are needed to filter in or out data.,FALSE,TRUE,,,b
 Can you cumulate multiple conditions in the WHERE clause?,YES,NO,,,a
 You always need to have a WHERE clause in your SQL queries.,FALSE,TRUE,,,a
 How is formatted a date with the data SQL data type in BigQuery?,YYYY-MM-DD,MM-DD-YYYY,YY-MM-DD,DD-MM-YYYY,a
 There are multiple ways to use subqueries.,FALSE,TRUE,,,b
-
