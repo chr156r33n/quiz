@@ -1,0 +1,11 @@
+question,option_a,option_b,option_c,option_d,option_e,correct_option
+Looker Studio is a data visualization tool which allows you to present your data more efficiently.,Yes,No,,,,a
+Using Looker Studio with BigQuery allows to access data without added costs.,TRUE,FALSE,,,,b
+You can use Looker Studio just to explore and play with your data.,Yes,No,,,,a
+Looker Studio allows you to use calculated fields.,Yes,No,,,,a
+You can filter the queries by country or even search type in your Looker Studio dashboard using the GSC bulk export data.,TRUE,FALSE,,,,a
+Looker Studio doesn't allow users to change the data dates when connected to a GSC bulk export table.,TRUE,FALSE,,,,b
+You can use a BigQuery table or view as a data source.,TRUE,FALSE,,,,a
+Looker Studio requires an additional connector to access the GSC bulk export data,TRUE,FALSE,,,,b
+What are the main Looker Studio selling points to build your dashboards / reports? Multiple answers might be correct.,It is free,It is quite easy to use,It offers a native connection to BigQuery,It is more powerful than PowerBI,"It offers very simple features, no data blending for instance, which makes it really easy to use.","a,b,c"
+You can't mix data from multiple data sources in a Looker Studio report.,TRUE,FALSE,,,,b
