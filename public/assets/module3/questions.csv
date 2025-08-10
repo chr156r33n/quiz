@@ -1,0 +1,11 @@
+question,option_a,option_b,option_c,option_d,option_e,option_f,correct_option
+Why is it useful to save some of your queries? Multiple answers might be correct.,You need to do that to run your query,In order to easily reuse a query later,You need to do that to schedule a query.,To share useful queries.,,,"b,d"
+"In BigQuery, saving a query's results to a table allows you to store the output data for future use.",TRUE,FALSE,,,,,a
+Views are the best way to save data to BigQuery,TRUE,FALSE,,,,,b
+Why are schedule queries useful? Multiple answers could be correct.,It is cheaper to use the scheduled query output rather than re-query every time you wish to view the queried data,It allows you to replace all the data in a table or add new data to the end of the table,You schedule regular changes to your data and store for easy querying later.,,,,"a,b,c"
+"After having ran your query, you can save results and you have different options to do so. What is the main limitation that you will face using most of the options?",Some of the options are more costly,The size,There are no limitations,,,,b
+Why is it sometimes preferable to export your data to CSV?,Because CSV files offer a more powerful way to filter and analyze data,"CSVs can be opened in Excel/Sheets which may make smaller data sets cheaper/quicker to work with.""",,,,,b
+How are views different from tables ? Multiple answers might be correct.,They don't store data.,They are read only (they don't impact the data you load),"Each time you load a view, the defining SQL query is executed.",They are slower,They cost more,They can't handle all data types,"a,b,c"
+You can connect data visualization tools to a view and use it like a table,TRUE,FALSE,,,,,a
+Views can offer always up-to-date data.,TRUE,FALSE,,,,,a
+You can save as queries.,Yes,No,,,,,a
