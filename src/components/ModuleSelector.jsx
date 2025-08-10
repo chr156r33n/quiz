@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { modules } from '@/modules.js'
+import { modules } from '@/data/modules.js'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 
