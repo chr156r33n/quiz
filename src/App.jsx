@@ -58,7 +58,7 @@ const parseCSV = (csvText) => {
 };
 
 function App() {
-  const [moduleId] = useState(() => new URLSearchParams(window.location.search).get('module') || 'module1')
+  const [moduleId, setModuleId] = useState(() => new URLSearchParams(window.location.search).get('module') || 'module1')
   const selectedModule = modules.find(m => m.id === moduleId) || modules[0]
   const quizConfig = selectedModule.config
   const [questions, setQuestions] = useState([])
@@ -67,19 +67,21 @@ function App() {
   const [answers, setAnswers] = useState([])
   const [showResults, setShowResults] = useState(false)
   const [quizStarted, setQuizStarted] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    setLoading(true)
     fetch(selectedModule.csv)
       .then((response) => response.text())
       .then((csv) => {
-        const newQuestions = parseCSV(csv);
+        const newQuestions = parseCSV(csv)
         if (newQuestions.length > 0) {
-          setQuestions(newQuestions);
-          setQuizStarted(true)
+          setQuestions(newQuestions)
         }
       })
-      .catch((error) => console.error("Error loading CSV:", error));
-  }, [selectedModule]);
+      .catch((error) => console.error("Error loading CSV:", error))
+      .finally(() => setLoading(false))
+  }, [selectedModule])
 
 
   const resetQuiz = () => {
@@ -87,7 +89,7 @@ function App() {
     setSelectedAnswers(new Set())
     setAnswers([])
     setShowResults(false)
-    setQuizStarted(true)
+    setQuizStarted(false)
   }
 
   const handleModuleSelect = (id) => {
@@ -96,11 +98,13 @@ function App() {
     window.history.replaceState(null, '', url.toString())
     localStorage.setItem('module', id)
     setModuleId(id)
+    setQuestions([])
     setCurrentQuestion(0)
     setSelectedAnswers(new Set())
     setAnswers([])
     setShowResults(false)
     setQuizStarted(false)
+    setLoading(true)
   }
 
   const handleAnswerSelect = (answer) => {
@@ -150,7 +154,7 @@ function App() {
     return <ModuleSelector onSelect={handleModuleSelect} initialModule={moduleId} />
   }
 
-  if (!quizStarted) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl">
@@ -159,6 +163,28 @@ function App() {
               Loading...
             </CardTitle>
           </CardHeader>
+        </Card>
+      </div>
+    )
+  }
+
+  if (!quizStarted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <Card className="w-full max-w-2xl">
+          <CardHeader className="text-center">
+            <CardTitle className="text-3xl font-bold text-gray-800 mb-4">
+              {quizConfig.mainTitle}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-gray-700 mb-6">
+              {quizConfig.welcomeMessage}
+            </p>
+            <Button onClick={() => setQuizStarted(true)} className="Button">
+              {quizConfig.startButton}
+            </Button>
+          </CardContent>
         </Card>
       </div>
     )
