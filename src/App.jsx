@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { RotateCcw, CheckCircle, XCircle } from 'lucide-react'
 import ModuleSelector from '@/components/ModuleSelector.jsx'
-import { modules } from '@/modules.js'
 import './App.css'
 import { modules } from './data/modules.js'
 
