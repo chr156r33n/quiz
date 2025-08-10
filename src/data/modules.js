@@ -1,6 +1,7 @@
 export const modules = [
   {
     id: 'module1',
+    title: "Module 1: You're in! First steps to data analysis",
     csv: '/assets/module1/questions.csv',
     config: {
       mainTitle: "BigQuery Pro Module 1 Quiz - You're in! First steps to data analysis",
@@ -24,6 +25,7 @@ export const modules = [
   },
   {
     id: 'module2',
+    title: 'Module 2: Advanced analysis',
     csv: '/assets/module2/questions.csv',
     config: {
       mainTitle: "BigQuery Pro Module 2 Quiz - Advanced analysis",
