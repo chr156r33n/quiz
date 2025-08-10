@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { RotateCcw, CheckCircle, XCircle } from 'lucide-react'
+import ModuleSelector from '@/components/ModuleSelector.jsx'
+import { modules } from '@/modules.js'
 import './App.css'
 import { modules } from './data/modules.js'
 
@@ -60,7 +62,6 @@ function App() {
   const [moduleId] = useState(() => new URLSearchParams(window.location.search).get('module') || 'module1')
   const selectedModule = modules.find(m => m.id === moduleId) || modules[0]
   const quizConfig = selectedModule.config
-
   const [questions, setQuestions] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState(new Set())
@@ -75,21 +76,32 @@ function App() {
         const newQuestions = parseCSV(csv);
         if (newQuestions.length > 0) {
           setQuestions(newQuestions);
+          setQuizStarted(true)
         }
       })
       .catch((error) => console.error("Error loading CSV:", error));
   }, [selectedModule]);
+
 
   const resetQuiz = () => {
     setCurrentQuestion(0)
     setSelectedAnswers(new Set())
     setAnswers([])
     setShowResults(false)
-    setQuizStarted(false)
+    setQuizStarted(true)
   }
 
-  const startQuiz = () => {
-    setQuizStarted(true)
+  const handleModuleSelect = (id) => {
+    const url = new URL(window.location)
+    url.searchParams.set('module', id)
+    window.history.replaceState(null, '', url.toString())
+    localStorage.setItem('module', id)
+    setModuleId(id)
+    setCurrentQuestion(0)
+    setSelectedAnswers(new Set())
+    setAnswers([])
+    setShowResults(false)
+    setQuizStarted(false)
   }
 
   const handleAnswerSelect = (answer) => {
@@ -135,36 +147,19 @@ function App() {
     return 'text-red-600'
   }
 
+  if (!moduleId) {
+    return <ModuleSelector onSelect={handleModuleSelect} initialModule={moduleId} />
+  }
+
   if (!quizStarted) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <Card className="w-full max-w-2xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold text-gray-800 mb-4">
-              {quizConfig.mainTitle}
+            <CardTitle className="text-2xl font-bold text-gray-800 mb-4">
+              Loading...
             </CardTitle>
-            <p className="text-gray-600 mb-6">
-              {quizConfig.welcomeMessage}
-            </p>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="text-center">
-              <p className="text-lg font-semibold text-gray-700 mb-2">
-                {quizConfig.currentQuizText} {questions.length} {quizConfig.questionsText}
-              </p>
-              {quizConfig.multipleChoiceFormat && (
-                <p className="text-sm text-gray-500">
-                  {quizConfig.multipleChoiceFormat}
-                </p>
-              )}
-            </div>
-            <Button
-              onClick={startQuiz}
-              className="w-full text-lg py-6 Button"
-            >
-              {quizConfig.startButton}
-            </Button>
-          </CardContent>
         </Card>
       </div>
     )
